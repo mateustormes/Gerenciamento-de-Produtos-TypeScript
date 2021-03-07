@@ -1,0 +1,34 @@
+
+  <h1>Roupas</h1>  
+<table class="table table-dark table-borderless">
+  <tbody>
+        <tr>
+          <th width="20%"  *ngFor="let list of listaProdutos">
+            <img src="{{list.foto}}" class="card-img-top" alt="..." height="150">
+            <div class="card-body" style="width: 18rem;">
+              <h5 class="card-title">{{list.nome}}</h5>
+              <h5 class="card-title">R${{list.preco}}</h5>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Adicionar ao Carrinho
+              </button>
+            </div>
+          </th>
+        </tr>
+</table>
+
+<h1>Eletrônicos</h1>  
+<table class="table table-dark table-borderless">
+  <tbody>
+        <tr>
+          <th width="20%"  *ngFor="let list of listaProdutosEletronicos">
+            <img src="{{list.foto}}" class="card-img-top" alt="..." height="150">
+            <div class="card-body" style="width: 18rem;">
+              <h5 class="card-title">{{list.nome}}</h5>
+              <h5 class="card-title">R${{list.preco}}</h5>
+              <button type="button" class="btn btn-primary" type="submit" (click)="olho()">
+                Adicionar ao Carrinho
+              </button>
+            </div>
+          </th>
+        </tr>
+</table>
