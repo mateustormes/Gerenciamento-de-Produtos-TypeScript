@@ -8,9 +8,18 @@
     <h3>Não há nenhum Produto no Carrinho</h3>
   </th>
 </tr>
-    
   </tbody>
   <tbody *ngIf="meuCarrinho.length>0">
+    <tr>
+      <th>
+        <input matInput placeholder="Filtrar" type="string" value="" [(ngModel)]="filtro">
+      </th>
+      <th>
+        <button type="button" class="btn btn-primary" type="submit" (click)="filtrar()">
+          Filtrar (Descrição/Código/Valor) do Produto (Precisa ser Digitado Igual)
+        </button>
+      </th>
+    </tr>
     <tr >
       <th *ngFor="let col of colunasTabela">{{col}}</th>
     </tr>

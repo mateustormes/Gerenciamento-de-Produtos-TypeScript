@@ -17,6 +17,7 @@ export class MeuCarrinhoComponent{
     meuCarrinho:Array<produtoObj>=[];
     valorTotalPrecoCarrinho:number=0;
     mostrarValorPrecoCarrinhoDoisDigitos:string="";
+    filtro:string="";
 
     objProdutoModalSelecionado:produtoObj= new produtoObj();
     objProdutoModal:produtoObj= new produtoObj();
@@ -104,6 +105,12 @@ export class MeuCarrinhoComponent{
         obj10.preco=499.99;
         obj10.foto="assets/camera.png";
         this.meuCarrinho.push(obj10);
+    }
+
+    filtrar(){
+        console.log(this.filtro);
+        let filtro =this.meuCarrinho.filter(items=>items.nome == this.filtro || items.codigo.toString() == this.filtro || items.preco.toString() == this.filtro);
+        this.meuCarrinho = filtro;
     }
 
       receberProdutoAtual(list:produtoObj){
