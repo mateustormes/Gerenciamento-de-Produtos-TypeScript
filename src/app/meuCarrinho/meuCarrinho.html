@@ -1,34 +1,174 @@
+<br><br>
 <h1>Meu Carrinho</h1>  
-<table class="table table-dark table-borderless">
-  <tbody>
-        <tr>
-          <th width="20%"  *ngFor="let list of meuCarrinho">
-            <img src="{{list.foto}}" class="card-img-top" alt="..." height="150">
-            <div class="card-body" style="width: 18rem;">
-              <h5 class="card-title">{{list.nome}}</h5>
-              <h5 class="card-title">R${{list.preco}}</h5>
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Finalizar Compra
-              </button>
-            </div>
+<br><br>
+<table class="table table-dark">
+  <tbody *ngIf="meuCarrinho.length==0">
+<tr>
+  <th>
+    <h3>Não há nenhum Produto no Carrinho</h3>
+  </th>
+</tr>
+    
+  </tbody>
+  <tbody *ngIf="meuCarrinho.length>0">
+    <tr >
+      <th *ngFor="let col of colunasTabela">{{col}}</th>
+    </tr>
+        <tr *ngFor="let list of meuCarrinho">
+          <th width="20%">
+            {{list.codigo}}
           </th>
+          <th width="20%">
+            {{list.nome}}
+          </th>
+          <th width="20%">
+            R$: {{list.preco}}
+          </th>          
+          <th width="10%">
+            <button type="button" class="btn btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#modalEditarProduto" (click)="receberProdutoAtual(list)">
+              Editar Compra
+            </button>
+          </th> 
+          <th width="10%"> 
+            <button type="button" class="btn btn-primary" type="submit" (click)="excluirCompra(list)">
+              Excluir
+            </button>
+            </th>
         </tr>
+        <tr>
+          <th>
+          </th>
+          <th>
+
+          </th>
+          <th>
+              Valor Total Carrinho  <br>R$: {{mostrarValorPrecoCarrinhoDoisDigitos}}
+          </th>
+          <th width="20%">
+              <button type="button" class="btn btn-success" type="submit" data-bs-toggle="modal" data-bs-target="#modalFinalizarCompras">Finalizar Compras</button>
+          </th>
+          </tr>
+  </tbody>
 </table>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<div *ngIf="comprasFinalizadas.length>0">
+  <br><br>
+      <h1 *ngIf="comprasFinalizadas.length>0">Compras Finalizadas:</h1>
+  <br><br>
+
+  <table class="table table-dark">
+    <tbody>
+      <tr >
+        <th *ngFor="let col of colunasTabelaComprasFinalizadas">{{col}}</th>
+      </tr>
+      <tr *ngFor="let list of comprasFinalizadas">
+        <th width="25%">
+          {{list.nomeComprador}}
+        </th>
+        <th  width="25%">
+          {{list.cpfComprador}}
+        </th>
+        <th width="25%">
+          {{list.rgComprador}}
+        </th>
+        <th  width="25%">
+            <button type="button" class="btn btn-success" type="submit" data-bs-toggle="modal" data-bs-target="#modalVisualizarCompras" (click)="selecionarProdutosReferentCompra(list)">Visualizar Produtos Referente a esta Compra</button>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div #modalVisualizarCompras class="modal fade" id="modalVisualizarCompras" tabindex="-1" aria-labelledby="exampleModalVisualizarCompras" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h5 class="modal-title" id="exampleModalLabel">Visualizar Produtos Comprados</h5>
         </div>
         <div class="modal-body">
-          ...
+          <table class="table table-dark">
+            <tbody>
+              <tr >
+                <th *ngFor="let col of colunasTabela">{{col}}</th>
+              </tr>
+                  <tr *ngFor="let list of compraFinalizadaSelecionada.produtosComprados">
+                    <th width="20%">
+                      {{list.codigo}}
+                    </th>
+                    <th width="20%">
+                      {{list.nome}}
+                    </th>
+                    <th width="20%">
+                      R$: {{list.preco}}
+                    </th>  
+                     
+                    <th width="20%">
+                      <img src="{{list.foto}}" class="card-img-top" alt="..." height="150">
+                    </th>
+                  </tr>
+                  </tbody>
+                </table>  
+                <h3>Nome do Comprador: {{compraFinalizadaSelecionada.nomeComprador}}</h3>
+                <h3>CPF do Comprador: {{compraFinalizadaSelecionada.cpfComprador}}</h3>
+                <h3>RG do Comprador: {{compraFinalizadaSelecionada.rgComprador}}</h3>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar Visualização</button>
         </div>
       </div>
     </div>
+
+</div>
+<div #modalEditarProduto class="modal fade" id="modalEditarProduto" tabindex="-1" aria-labelledby="exampleModalEditarProduto" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Editar Produto: {{objProdutoModalSelecionado.nome}}</h5>
+        </div>
+        <div class="modal-body">
+          <label >Código:  </label>
+          <input matInput placeholder="Informe o Novo Código do Produto" type="number" value="" [(ngModel)]="objProdutoModal.codigo">
+          <br><br>
+          <label>Descrição:  </label>
+          <input matInput placeholder="Informe a Nova Descrição do Produto" value="" [(ngModel)]="objProdutoModal.nome">
+          <br><br>
+          <label>Valor:  </label>
+          <input matInput placeholder="Informe o Novo Valor do Produto" type="number" value="" [(ngModel)]="objProdutoModal.preco">
+          <br><br>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar Modal</button>
+          <button type="button" class="btn btn-primary" (click)="editarCompra(objProdutoModalSelecionado)" data-bs-dismiss="modal">Atualizar Produto</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div #modalFinalizarCompras class="modal fade" id="modalFinalizarCompras" tabindex="-1" aria-labelledby="exampleModalFinalizarCompras" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Finalizar Compra</h5>
+        </div>
+        <div class="modal-body">
+          <label >Valor Total da Compra:  {{mostrarValorPrecoCarrinhoDoisDigitos}}</label>
+          <br><br>
+          <label>Nome do Comprador:  </label>
+          <input matInput placeholder="Informe o nome do Comprador" value="" [(ngModel)]="objFinalizarCompra.nomeComprador">
+          <br><br>
+          <label>RG do Comprador:  </label>
+          <input matInput placeholder="Informe o RG do Comprador" type="string" value="" [(ngModel)]="objFinalizarCompra.rgComprador">
+          <br><br>
+          <label>CPF do Comprador:  </label>
+          <input matInput placeholder="Informe o CPF do Comprador" type="string" value="" [(ngModel)]="objFinalizarCompra.cpfComprador">
+          <br><br>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" (click)="finalizarCompraCarrinho()" data-bs-dismiss="modal">Finalizar</button>
+        </div>
+      </div>
+    </div>
+
   </div>

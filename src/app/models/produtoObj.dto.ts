@@ -1,6 +1,7 @@
 export class produtoObj {
+    codigo:number=0;
     nome:String="";
-    preco:Number=0;
+    preco:number=0;
     foto:String="";
     link:String="";
   };
