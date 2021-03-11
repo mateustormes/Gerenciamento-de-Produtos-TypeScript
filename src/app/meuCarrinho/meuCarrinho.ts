@@ -18,7 +18,7 @@ export class MeuCarrinhoComponent{
 
     objSelecionado:produtoObj = new produtoObj();
 
-    colunasTabela =["Código", "Descrição", "Valor"];
+    colunasTabela =["Id","Código", "Descrição", "Valor"];
     colunasTabelaComprasFinalizadas= ["Nome do Comprador","CPF Comprador","RG Comprador"];
     meuCarrinho:Array<produtoObj>=[];
     valorTotalPrecoCarrinho:number=0;
@@ -26,11 +26,6 @@ export class MeuCarrinhoComponent{
     filtro:string="";
     qtdeProduto:number= 0;
 
-    adicionarCarrinho(list:produtoObj){
-      this.meuCarrinho.push(list);
-      this.somarValorCarrinho();
-      
-    }
 
     objProdutoModalSelecionado:produtoObj= new produtoObj();
     objProdutoModal:produtoObj= new produtoObj();
@@ -122,9 +117,11 @@ export class MeuCarrinhoComponent{
     loopCompraProdutos(){
       let i=0;
       while(i<this.qtdeProduto){
-        this.adicionarCarrinho(this.objSelecionado);
+        this.objSelecionado.id= i.toString();
+        this.meuCarrinho.push(this.objSelecionado);
         i++;
       }
+      this.somarValorCarrinho();
     }
 
     filtrar(){
