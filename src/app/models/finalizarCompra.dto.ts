@@ -5,4 +5,5 @@ export class finalizarCompra {
     nomeComprador:string='';
     cpfComprador:string='';
     rgComprador:string='';
+    totalCompraFinalizada:number=0;
   };
