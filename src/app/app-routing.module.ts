@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { produtoObj } from './models/produtoObj.dto';
 
 const routes: Routes = [
   {
@@ -15,7 +14,15 @@ const routes: Routes = [
   {
     path:'catalogoProduto',
   loadChildren:()=>import('./catalogoProdutos/catalogoProduto.module').then(m=>m.CatalogoProdutoModule)
-  }
+  },
+  {
+    path:'homePage',
+    loadChildren:()=>import('./homePage/homePage.module').then(m=>m.HomePageModule)
+  },
+  {
+    path:'desenvolvedor',
+    loadChildren:()=>import('./desenvolvedor/desenvolvedor.module').then(m=>m.DesenvolvedorModule)
+  },
 ];
 
 @NgModule({

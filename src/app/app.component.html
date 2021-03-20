@@ -1,19 +1,22 @@
-
-<nav class="nav navbar navbar-dark bg-dark">
-  <a class="nav-link active" routerLink="/catalogoProduto">Página de Login</a>
-  <a class="nav-link" routerLink="/meuCarrinho" >Meu Carrinho</a>
-</nav>
-
-<div class="collapse" id="navbarToggleExternalContent">
-  <div class="bg-dark p-4">
-    <h5 class="text-white h4">Collapsed content</h5>
-    <span class="text-muted">Toggleable via the navbar brand.</span>
+<!-- routerLink="/meuCarrinho" <a class="nav-link active" routerLink="/catalogoProduto">Página de Login</a> -->
+<div class="bg-img">
+  <div class="container">
+    <div class="topnav">
+      <a routerLink="/homePage">Página Inicial</a>
+      <a routerLink="/meuCarrinho">Meu Carrinho</a>
+      <a routerLink="/catalogoProduto">Catalogo de Produtos</a>
+      <a routerLink="/desenvolvedor">Desenvolvedor</a>
+      <a routerLink="/desenvolvedor">Sobre o Site</a>
+    </div>
   </div>
-</div>
-<nav class="navbar navbar-dark bg-dark">
-  <div class="container-fluid">
-    
-  </div>
-</nav>
+</div> 
 
+
+
+<div id="mySidenav" class="sidenav">
+  <a href="#" id="about">About</a>
+  <a href="#" id="blog">Blog</a>
+  <a href="#" id="projects">Projects</a>
+  <a href="#" id="contact">Contact</a>
+</div> 
 <router-outlet></router-outlet>
