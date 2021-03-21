@@ -1,4 +1,7 @@
 export class UsuarioDTO{
-    usuario:string="";
-    senha:string="";
+     nomeCompleto:string="";
+     rg:string="";
+     cpf:string="";
+     email:string="";
+     senha:string="";
 }

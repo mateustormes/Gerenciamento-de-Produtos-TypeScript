@@ -1,40 +1,6 @@
 <html>
   <head></head>
 <body>
-  <h1>Roupas</h1>  
-  <table class="table table-dark table-borderless" style="">
-    <tbody>
-          <tr>
-            <th width="20%"  *ngFor="let list of listaProdutos">
-              <img src="{{list.foto}}" class="card-img-top" alt="..." height="150">
-              <div class="card-body" style="width: 18rem;">
-                <h5 class="card-title">{{list.nome}}</h5>
-                <h5 class="card-title">R${{list.preco}}</h5>
-                <button type="button" class="btn btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#modalQtdFinalizarCompra" (click)="selecionarCarrinho(list)">
-                  Adicionar ao Carrinho
-                </button>
-              </div>
-            </th>
-          </tr>
-  </table>
-  
-  <h1>Eletrônicos</h1>  
-  <table class="table table-dark table-borderless">
-    <tbody>
-          <tr>
-            <th width="20%"  *ngFor="let list of listaProdutosEletronicos">
-              <img src="{{list.foto}}" class="card-img-top" alt="..." height="150">
-              <div class="card-body" style="width: 18rem;">
-                <h5 class="card-title">{{list.nome}}</h5>
-                <h5 class="card-title">R${{list.preco}}</h5>
-                <button type="button" class="btn btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#modalQtdFinalizarCompra" (click)="selecionarCarrinho(list)">
-                  Adicionar ao Carrinho
-                </button>
-              </div>
-            </th>
-          </tr>
-  </table>
-  <br><br>
 <h1>Meu Carrinho</h1>  
 <br><br>
 <table class="table table-dark">
@@ -102,7 +68,7 @@
 
 <div *ngIf="comprasFinalizadas.length>0">
   <br><br>
-      <h1 *ngIf="comprasFinalizadas.length>0">Compras Finalizadas:</h1>
+      <h1 >Compras Finalizadas:</h1>
   <br><br>
 
   <table class="table table-dark">
@@ -152,8 +118,8 @@
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Visualizar Produtos Comprados</h5>
         </div>
-        <div class="modal-body">
-          <table class="table table-dark">
+        <div class="modal-body" >
+          <table class="table table-dark" id="scroll">
             <tbody>
               <tr >
                 <th *ngFor="let col of colunasTabela">{{col}}</th>

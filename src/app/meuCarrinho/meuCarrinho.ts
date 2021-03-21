@@ -1,26 +1,29 @@
 import { Component, ElementRef, Input, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
-import { CatalogoProdutoComponent } from "../catalogoProdutos/catalogoProduto";
 import { finalizarCompra } from "../models/finalizarCompra.dto";
 import { produtoObj } from "../models/produtoObj.dto";
-
+import {globalVariables, listaProdutos, meuCarrinho} from "../global"
+import { UsuarioDTO } from "../models/usuarios.dto";
 @Component({
     selector: 'app-meuCarrinho',
     templateUrl: './meuCarrinho.html',
     styleUrls: ['./meuCarrinho.css']
 })
 export class MeuCarrinhoComponent{
-
+  @Input() meuCarrinho: Array<produtoObj>= meuCarrinho;
+  
     constructor(private router: Router){}
-    listaProdutos:Array<produtoObj>=[];
+    listaProdutos:Array<produtoObj>=listaProdutos;
     listaProdutosEletronicos:Array<produtoObj>=[];
     meuCarrinhoAux:Array<produtoObj>=[];
+    meuCarrinhoLocal:Array<produtoObj> = [];
+    @Input() usuarioLogadoLocal: UsuarioDTO = new UsuarioDTO();
 
     objSelecionado:produtoObj = new produtoObj();
 
     colunasTabela =["Id","Código", "Descrição", "Valor"];
     colunasTabelaComprasFinalizadas= ["Nome do Comprador","CPF Comprador","RG Comprador"];
-    meuCarrinho:Array<produtoObj>=[];
+
     valorTotalPrecoCarrinho:number=0;
     mostrarValorPrecoCarrinhoDoisDigitos:string="";
     filtro:string="";
@@ -36,6 +39,12 @@ export class MeuCarrinhoComponent{
     comprasFinalizadas:Array<finalizarCompra>=[];
     compraFinalizadaSelecionada:finalizarCompra= new finalizarCompra();
     ngOnInit(){
+      console.log('meuCarrinho');
+      
+      console.log(this.meuCarrinho);
+      console.log(meuCarrinho);
+      
+      
       this.iniciarProdutosCatalogo();
         this.somarValorCarrinho();
     }
@@ -118,7 +127,7 @@ export class MeuCarrinhoComponent{
       let i=0;
       while(i<this.qtdeProduto){
         this.objSelecionado.id= i.toString();
-        this.meuCarrinho.push(this.objSelecionado);
+        meuCarrinho.push(this.objSelecionado);
         i++;
       }
       this.somarValorCarrinho();
@@ -128,17 +137,17 @@ export class MeuCarrinhoComponent{
       let filtro:Array<produtoObj>=[];
       
       if(this.filtro!=""){
-        this.meuCarrinho.forEach(items=>{
+        meuCarrinho.forEach(items=>{
           if(items.nome.match(this.filtro)){
             filtro.push(items);
           }
         });
-        this.meuCarrinhoAux= this.meuCarrinho;
-        this.meuCarrinho = filtro;
+        this.meuCarrinhoAux= meuCarrinho;
+        //meuCarrinho = filtro;
       }else{
         console.log(this.meuCarrinhoAux);
         
-        this.meuCarrinho=this.meuCarrinhoAux;
+        //meuCarrinho=this.meuCarrinhoAux;
       }
         this.somarValorCarrinho();
     }
@@ -156,9 +165,9 @@ export class MeuCarrinhoComponent{
       }
 
       editarCompra(list:produtoObj){         
-        this.meuCarrinho.forEach((items,index)=>{
+        meuCarrinho.forEach((items,index)=>{
             if(items.codigo == list.codigo){
-                this.meuCarrinho[index]=  this.objProdutoModal;
+                meuCarrinho[index]=  this.objProdutoModal;
             }
         });
         
@@ -168,7 +177,7 @@ export class MeuCarrinhoComponent{
       somarValorCarrinho(){
         this.valorTotalPrecoCarrinho = 0;      
         
-        this.meuCarrinho.forEach(items=>{
+        meuCarrinho.forEach(items=>{
             this.valorTotalPrecoCarrinho = this.valorTotalPrecoCarrinho + items.preco;
             this.mostrarValorPrecoCarrinhoDoisDigitos = this.valorTotalPrecoCarrinho.toFixed(2);
         });
@@ -176,18 +185,18 @@ export class MeuCarrinhoComponent{
       }
 
       finalizarCompraCarrinho(){
-        this.objFinalizarCompra.produtosComprados = this.meuCarrinho;
+        this.objFinalizarCompra.produtosComprados = meuCarrinho;
         this.comprasFinalizadas.push(this.objFinalizarCompra);
         
         this.objFinalizarCompra = new finalizarCompra();
         this.somarValorCarrinho();        
-        this.meuCarrinho = [];
+        //meuCarrinho = [];
       }
 
       excluirCompra(list:produtoObj){
-        this.meuCarrinho.forEach((items,index)=>{
+        meuCarrinho.forEach((items,index)=>{
             if(items.codigo == list.codigo){
-                this.meuCarrinho.splice(index,1);
+                meuCarrinho.splice(index,1);
             }
         })
         this.somarValorCarrinho();

@@ -23,6 +23,10 @@ const routes: Routes = [
     path:'desenvolvedor',
     loadChildren:()=>import('./desenvolvedor/desenvolvedor.module').then(m=>m.DesenvolvedorModule)
   },
+  {
+    path:'sobre',
+    loadChildren:()=>import('./sobre/sobre.module').then(m=>m.SobreModule)
+  },
 ];
 
 @NgModule({

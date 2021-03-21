@@ -1,13 +1,54 @@
-<div class="bg-img2">
-    <form action="/action_page.php" class="container2">
-      <h1>Login</h1>
-  
-      <label for="email"><b>Email</b></label>
-      <input type="text" placeholder="Enter Email" name="email" required>
-  
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
-  
-      <button type="submit" class="btn">Login</button>
-    </form>
-  </div> 
+<table  style="margin-left: 10%;width: 80%;">
+  <tbody *ngIf="{ inicio: 5, fim: 10, c: 3 } as variableLocais">
+    <tr>
+      <th>Roupas</th>
+    </tr> 
+          <tr >
+            <th width="20%" *ngFor="let list of listaProdutosCadastrados; let i= index;" >
+              <div *ngIf="i<variableLocais.inicio">
+                    
+                  <img src="{{list.foto}}" class="card-img-top" alt="..." height="150">
+                  <div class="card-body" style="width: 18rem;">
+                    <h5 class="card-title">{{list.nome}}</h5>
+                    <h5 class="card-title">R${{list.preco}}</h5>
+                    <button type="button" class="btn btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#modalQtdFinalizarCompra" (click)="selecionarCarrinho(list)">
+                      Adicionar ao Carrinho
+                    </button>
+                </div>
+            </div>
+            </th>
+          </tr>
+          <tr>
+            <th>Eletrônicos</th>
+          </tr>
+          <tr >
+            <th width="20%" *ngFor="let list of listaProdutosEletronicosCadastrados; let i= index;" >                  
+                  <img src="{{list.foto}}" class="card-img-top" alt="..." height="150">
+                  <div class="card-body" style="width: 18rem;">
+                    <h5 class="card-title">{{list.nome}}</h5>
+                    <h5 class="card-title">R${{list.preco}}</h5>
+                    <button type="button" class="btn btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#modalQtdFinalizarCompra" (click)="selecionarCarrinho(list)">
+                      Adicionar ao Carrinho
+                    </button>
+                </div>
+            </th>
+          </tr>
+  </table>
+
+  <div #modalQtdFinalizarCompra class="modal fade" id="modalQtdFinalizarCompra" tabindex="-1" aria-labelledby="exampleModalQtdFinalizarCompra" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Quantidade de Produtos:</h5>
+        </div>
+        <div class="modal-body">
+          <label >Informe a quantidade de Produtos que deseja comprar:  </label>
+          <input type="text" class="form-control" placeholder="Informe a quantidade de Produtos" type="number" value="" aria-label="qtdeProduto" aria-describedby="basic-addon1" [(ngModel)]="qtdeProduto">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar Compra</button>
+          <button type="button" class="btn btn-primary" (click)="loopCompraProdutos()" data-bs-dismiss="modal">Selecionar Produto</button>
+        </div>
+      </div>
+    </div>
+  </div>

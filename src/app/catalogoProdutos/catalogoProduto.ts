@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
-import { produtoObj } from "../models/produtoObj.dto";
-import { UsuarioDTO } from "../models/usuarios.dto";
+
+import {meuCarrinho} from "../global"
 
 @Component({
     selector: 'app-catalogoProduto',
@@ -10,8 +10,9 @@ import { UsuarioDTO } from "../models/usuarios.dto";
 })
 export class CatalogoProdutoComponent{
     constructor(private router: Router){}
-    usuarioLogin: UsuarioDTO = new UsuarioDTO();
-    ngOnInit(){        
-      }
+    ngOnInit(){  
+        console.log(meuCarrinho);
+        
+    }
  
 }

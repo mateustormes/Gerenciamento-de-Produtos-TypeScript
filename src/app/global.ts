@@ -1,8 +1,14 @@
-import { Injectable } from "@angular/core";
+import { produtoObj } from "./models/produtoObj.dto";
+import { UsuarioDTO } from "./models/usuarios.dto";
 
-@Injectable()
-export class Globals {
+export let globalVariables: UsuarioDTO = new UsuarioDTO();
+export let usuarioCadastro: UsuarioDTO = new UsuarioDTO();
+export let usuarioLogado: UsuarioDTO = new UsuarioDTO();
+export let listaUsuariosCadastrados:Array<UsuarioDTO>= [];
+export let listaProdutosCadastrados:Array<produtoObj>= [];
+export let listaProdutosEletronicosCadastrados:Array<produtoObj>= [];
+export let qtdeProduto: number;
+export let objSelecionado:produtoObj = new produtoObj();
+export let meuCarrinho:Array<produtoObj>=[];
 
-  role:String = 'test';
-
-}
+export let listaProdutos:Array<produtoObj>= [];

@@ -1,17 +1,17 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { DesenvolvedorComponent } from "./desenvolvedor";
-import { DesenvolvedorRoutingModule } from "./desenvolvedor-routing.module";
+import { SobreComponent } from "./sobre";
+import { SobreRoutingModule } from "./sobre-routing.module";
 
 @NgModule({
-    declarations: [DesenvolvedorComponent],
+    declarations: [SobreComponent],
     imports: [
       CommonModule,
-      DesenvolvedorRoutingModule,
+      SobreRoutingModule,
       FormsModule,
       ReactiveFormsModule
     ],
     providers: []
   })
-  export class DesenvolvedorModule { }
+  export class SobreModule { }

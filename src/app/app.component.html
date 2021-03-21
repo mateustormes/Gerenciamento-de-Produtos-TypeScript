@@ -6,17 +6,94 @@
       <a routerLink="/meuCarrinho">Meu Carrinho</a>
       <a routerLink="/catalogoProduto">Catalogo de Produtos</a>
       <a routerLink="/desenvolvedor">Desenvolvedor</a>
-      <a routerLink="/desenvolvedor">Sobre o Site</a>
+      <a routerLink="/sobre">Sobre o Site</a>
+    </div>
+    
+  </div>
+  <div class="btns">
+    <button *ngIf="!entrou" type="button" class="btn btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#modalCadastrarNovoUsuario">
+      Cadastrar Novo Usuário
+    </button>
+    <button *ngIf="!entrou" type="button" class="btn btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#modalEntrarSistema">
+      Entrar no Sistema
+    </button>
+    <button *ngIf="entrou" type="button" class="btn btn-primary" type="submit" (click)="deslogar()">
+      Deslogar do Sistema
+    </button>
+    <div *ngIf="entrou">
+      <h2>Bem vindo ao Sistema {{usuarioLogadoLocal.email}}</h2>
     </div>
   </div>
 </div> 
-
-
-
 <div id="mySidenav" class="sidenav">
   <a href="#" id="about">About</a>
   <a href="#" id="blog">Blog</a>
   <a href="#" id="projects">Projects</a>
   <a href="#" id="contact">Contact</a>
 </div> 
+
+<div #modalCadastrarNovoUsuario class="modal fade" id="modalCadastrarNovoUsuario" tabindex="-1" aria-labelledby="exampleModalCadastrarUsuario" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cadastrar Novo Usuario:</h5>
+      </div>
+      <div class="modal-body" id="scroll">
+        <div class="bg-img2">
+          <form action="/action_page.php" class="container2">
+            <h1>Cadastrar</h1>
+            <label ><b>Informe o seu Nome Completo:</b></label>
+            <!-- <input type="text"   name="nome" required [(ngModel)]="a" > -->
+            <input type="text" class="form-control" name="nome" placeholder="Enter Nome Completo" value="" [(ngModel)]="usuarioCadastroLocal.nomeCompleto">
+            
+            <label ><b>Informe o seu RG:</b></label>
+            <input type="text" placeholder="Enter RG" name="rg" required for="usuarioCadastro.rg" [(ngModel)]="usuarioCadastroLocal.rg">
+
+            <label ><b>Informe o seu CPF:</b></label>
+            <input type="text" placeholder="Enter CPF" name="cpf" required [(ngModel)]="usuarioCadastroLocal.cpf">
+        
+            <label ><b>Informe o Email:</b></label>
+            <input type="text" placeholder="Enter Email" name="email" required [(ngModel)]="usuarioCadastroLocal.email">
+        
+            <label><b>Informe sua Senha:</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" required [(ngModel)]="usuarioCadastroLocal.senha">
+        
+          </form>
+        </div> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="cadastrarUsuario()" data-bs-dismiss="modal">Cadastrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div #modalEntrarSistema class="modal fade" id="modalEntrarSistema" tabindex="-1" aria-labelledby="exampleModalEntrarSistema" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Entrar no Sistema:</h5>
+      </div>
+      <div class="modal-body">
+        <div class="bg-img2">
+          <form action="/action_page.php" class="container2">
+            <h1>Login</h1>
+        
+            <label><b>Informe o Email:</b></label>
+            <input type="text" placeholder="Enter Email" name="email" required [(ngModel)]="usuarioCadastroLocal.email">
+        
+            <label><b>Informe sua Senha:</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" required [(ngModel)]="usuarioCadastroLocal.senha">
+        
+            <button type="submit" class="btn" (click)="entrarSistema()" data-bs-dismiss="modal">Entrar</button>
+          </form>
+        </div> 
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <router-outlet></router-outlet>
