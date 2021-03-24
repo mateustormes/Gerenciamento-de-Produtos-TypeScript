@@ -4,14 +4,14 @@
 <h1>Meu Carrinho</h1>  
 <br><br>
 <table class="table table-dark">
-  <tbody *ngIf="meuCarrinho.length==0">
+  <tbody *ngIf="meuCarrinhoLocal.length==0">
 <tr>
   <th>
     <h3>Não há nenhum Produto no Carrinho</h3>
   </th>
 </tr>
   </tbody>
-  <tbody *ngIf="meuCarrinho.length>0">
+  <tbody *ngIf="meuCarrinhoLocal.length>0">
     <tr>
       <th>        
           <input type="text" class="form-control" placeholder="Informe o valor da pesquisa" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="filtro">
@@ -25,7 +25,7 @@
     <tr >
       <th *ngFor="let col of colunasTabela">{{col}}</th>
     </tr>
-        <tr *ngFor="let list of meuCarrinho">
+        <tr *ngFor="let list of meuCarrinhoLocal">
           <th width="20%">
             {{list.id}}
           </th>
