@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
+import {usuarioCadastro,usuarioLogado,listaUsuariosCadastrados,globalVariables} from "../global"
 @Component({
     selector: 'app-sobre',
     templateUrl: 'sobre.html',
@@ -7,6 +8,6 @@ import { Router } from "@angular/router";
 })
 export class SobreComponent{
     constructor(private router: Router){}
-    ngOnInit(){       
+    ngOnInit(){        
     }
 }

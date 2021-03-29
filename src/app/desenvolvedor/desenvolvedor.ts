@@ -8,13 +8,9 @@ import {globalVariables, listaProdutos} from "../global"
     styleUrls: ['desenvolvedor.css']
 })
 export class DesenvolvedorComponent{
-    message:string='testando';
     constructor(private router: Router){}
     usuarioLogin: UsuarioDTO = new UsuarioDTO();
-    ngOnInit(){ 
-        globalVariables.senha="verdade"
-        console.log(globalVariables);
-        
+    ngOnInit(){         
       }
       
  

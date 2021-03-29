@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { finalizarCompra } from "../models/finalizarCompra.dto";
 import { produtoObj } from "../models/produtoObj.dto";
-import {globalVariables, listaProdutos, meuCarrinho} from "../global"
+import {globalVariables, listaProdutos, meuCarrinho, usuarioLogado, comprasFinalizadas,compraFinalizadaSelecionada} from "../global"
 import { UsuarioDTO } from "../models/usuarios.dto";
 @Component({
     selector: 'app-meuCarrinho',
@@ -11,34 +11,33 @@ import { UsuarioDTO } from "../models/usuarios.dto";
 })
 export class MeuCarrinhoComponent{
   @Input() meuCarrinho: Array<produtoObj>= meuCarrinho;
-  
+  @Input() usuarioLogadoLocal: UsuarioDTO = {...usuarioLogado};
     constructor(private router: Router){}
     listaProdutos:Array<produtoObj>=listaProdutos;
     listaProdutosEletronicos:Array<produtoObj>=[];
-    meuCarrinhoAux:Array<produtoObj>=[];
+    colunasTabela =["Id","Código", "Descrição", "Valor"];
     meuCarrinhoLocal:Array<produtoObj> = meuCarrinho;
-    @Input() usuarioLogadoLocal: UsuarioDTO = new UsuarioDTO();
-
+    comprasFinalizadasLocal:Array<finalizarCompra>= comprasFinalizadas;
     objSelecionado:produtoObj = new produtoObj();
 
-    colunasTabela =["Id","Código", "Descrição", "Valor"];
     colunasTabelaComprasFinalizadas= ["Nome do Comprador","CPF Comprador","RG Comprador"];
 
+    
     valorTotalPrecoCarrinho:number=0;
-    mostrarValorPrecoCarrinhoDoisDigitos:string="";    filtro:string="";
     qtdeProduto:number= 0;
-
+    mostrarValorPrecoCarrinhoDoisDigitos:string="";
+    filtro:string="";
 
     objProdutoModalSelecionado:produtoObj= new produtoObj();
     objProdutoModal:produtoObj= new produtoObj();
 
     objFinalizarCompra:finalizarCompra=new finalizarCompra();
 
-
-    comprasFinalizadas:Array<finalizarCompra>=[];
-    compraFinalizadaSelecionada:finalizarCompra= new finalizarCompra();
+    
+    compraFinalizadaSelecionadaLocal:finalizarCompra= new finalizarCompra();
     ngOnInit(){
-      this.somarValorCarrinho();
+      this.somarValorCarrinho();  
+          
     }
 
 
@@ -57,18 +56,14 @@ export class MeuCarrinhoComponent{
       
       if(this.filtro!=""){
         this.meuCarrinhoLocal.forEach(items=>{
-          if(items.nome.match(this.filtro)){
+          if(items.nome.match(this.filtro) || items.codigo.toString().match(this.filtro) || items.id.toString().match(this.filtro)){
             filtro.push(items);
           }
         });
-        this.meuCarrinhoAux= this.meuCarrinhoLocal;
-        //meuCarrinho = filtro;
-      }else{        
-        //meuCarrinho=this.meuCarrinhoAux;
+        this.meuCarrinhoLocal= filtro;
       }
-        this.somarValorCarrinho();
+      this.somarValorCarrinho();
     }
-
     selecionarCarrinho(list:produtoObj){
       this.qtdeProduto=0;
       this.objSelecionado = list;      
@@ -96,16 +91,23 @@ export class MeuCarrinhoComponent{
             this.valorTotalPrecoCarrinho =  Number(this.valorTotalPrecoCarrinho) + Number(items.preco);
             this.mostrarValorPrecoCarrinhoDoisDigitos = this.valorTotalPrecoCarrinho.toFixed(2);
           });
-        this.compraFinalizadaSelecionada.totalCompraFinalizada = this.valorTotalPrecoCarrinho;
       }
 
       finalizarCompraCarrinho(){
-        this.objFinalizarCompra.produtosComprados = this.meuCarrinhoLocal;
-        this.comprasFinalizadas.push(this.objFinalizarCompra);
+        if(this.usuarioLogadoLocal.email!=""){
+          this.objFinalizarCompra.cpfComprador =this.usuarioLogadoLocal.cpf;
+          this.objFinalizarCompra.rgComprador =this.usuarioLogadoLocal.rg;
+          this.objFinalizarCompra.nomeComprador =this.usuarioLogadoLocal.nomeCompleto;
+        }
+        this.meuCarrinhoLocal.forEach(items=>{
+          this.objFinalizarCompra.produtosComprados.push(items)
+        });
         
-        this.objFinalizarCompra = new finalizarCompra();
+        this.comprasFinalizadasLocal.push(this.objFinalizarCompra);
         this.somarValorCarrinho();        
+        this.mostrarValorPrecoCarrinhoDoisDigitos=  "";
         this.meuCarrinhoLocal = [];
+        meuCarrinho.splice(0,meuCarrinho.length);
       }
 
       excluirCompra(list:produtoObj){
@@ -113,14 +115,20 @@ export class MeuCarrinhoComponent{
             if(items.id == list.id){
               this.meuCarrinhoLocal.splice(index,1);
             }
-        })
+        });
         this.somarValorCarrinho();
       }
 
-      selecionarProdutosReferentCompra(list:finalizarCompra){                  
-        this.compraFinalizadaSelecionada.nomeComprador = list.nomeComprador;
-        this.compraFinalizadaSelecionada.cpfComprador = list.cpfComprador;
-        this.compraFinalizadaSelecionada.rgComprador = list.rgComprador;
-        this.compraFinalizadaSelecionada.produtosComprados = list.produtosComprados;
+      selecionarProdutosReferentCompra(list:finalizarCompra){  
+        this.compraFinalizadaSelecionadaLocal.produtosComprados = list.produtosComprados;
+        
+        this.valorTotalPrecoCarrinho = 0;
+        this.compraFinalizadaSelecionadaLocal.produtosComprados.forEach(items=>{
+          this.valorTotalPrecoCarrinho =  Number(this.valorTotalPrecoCarrinho) + Number(items.preco);
+        });
+      this.compraFinalizadaSelecionadaLocal.totalCompraFinalizada = this.valorTotalPrecoCarrinho;
+        this.compraFinalizadaSelecionadaLocal.nomeComprador = list.nomeComprador;
+        this.compraFinalizadaSelecionadaLocal.cpfComprador = list.cpfComprador;
+        this.compraFinalizadaSelecionadaLocal.rgComprador = list.rgComprador;        
       }
 }

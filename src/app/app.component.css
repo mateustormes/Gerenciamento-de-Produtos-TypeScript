@@ -13,26 +13,31 @@
   
   #mySidenav a:hover {
     left: 0; /* On mouse-over, make the elements appear as they should */
+    width: 200px;
   }
   
   /* The about link: 20px from the top with a green background */
   #about {
     top: 20px;
+    width: auto;
     background-color: #4CAF50;
   }
   
   #blog {
     top: 80px;
+    width: auto;
     background-color: #2196F3; /* Blue */
   }
   
   #projects {
     top: 140px;
+    width: auto;
     background-color: #f44336; /* Red */
   }
   
   #contact {
-    top: 200px;
+    top: 220px;
+    width: auto;
     background-color: #555 /* Light Black */
   }
 

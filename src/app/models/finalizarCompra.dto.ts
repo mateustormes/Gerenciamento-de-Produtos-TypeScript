@@ -1,7 +1,7 @@
 import { produtoObj } from "./produtoObj.dto";
 
 export class finalizarCompra {
-    produtosComprados: Array<produtoObj>= [];
+    produtosComprados: Array<produtoObj>=new Array;
     nomeComprador:string='';
     cpfComprador:string='';
     rgComprador:string='';

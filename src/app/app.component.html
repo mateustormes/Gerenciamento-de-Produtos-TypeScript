@@ -21,15 +21,15 @@
       Deslogar do Sistema
     </button>
     <div *ngIf="entrou">
-      <h2>Bem vindo ao Sistema {{usuarioLogadoLocal.email}}</h2>
+      <h2>Bem vindo ao Sistema {{usuarioLogado.email}}</h2>
     </div>
   </div>
 </div> 
 <div id="mySidenav" class="sidenav">
-  <a href="#" id="about">About</a>
-  <a href="#" id="blog">Blog</a>
-  <a href="#" id="projects">Projects</a>
-  <a href="#" id="contact">Contact</a>
+  <a  routerLink="/homePage" id="about">Página Inicial</a>
+  <a routerLink="/meuCarrinho" id="blog">Meu Carrinho</a>
+  <a routerLink="/catalogoProduto" id="projects">Catalogo de Produtos</a>
+  <a routerLink="/desenvolvedor" id="contact">Desenvolvedor</a>
 </div> 
 
 <div #modalCadastrarNovoUsuario class="modal fade" id="modalCadastrarNovoUsuario" tabindex="-1" aria-labelledby="exampleModalCadastrarUsuario" aria-hidden="true">

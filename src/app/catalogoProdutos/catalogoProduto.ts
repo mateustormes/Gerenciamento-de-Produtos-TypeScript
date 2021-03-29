@@ -100,7 +100,6 @@ export class CatalogoProdutoComponent{
           meuCarrinho.push({...this.objSelecionado});
           i++;
         }
-        console.log(this.meuCarrinho)
       }
       selecionarCarrinho(list:produtoObj){
         this.qtdeProduto=0;
