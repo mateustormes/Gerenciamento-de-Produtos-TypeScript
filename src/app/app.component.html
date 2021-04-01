@@ -1,99 +1,60 @@
 
-<div class="bg-img">
-  <div class="container">
-    <div class="topnav">
-      <a routerLink="/homePage">Página Inicial</a>
-      <a routerLink="/meuCarrinho">Meu Carrinho</a>
-      <a routerLink="/catalogoProduto">Catalogo de Produtos</a>
-      <a routerLink="/desenvolvedor">Desenvolvedor</a>
-      <a routerLink="/sobre">Sobre o Site</a>
-    </div>
-    
-  </div>
-  <div class="btns">
-    <button *ngIf="!entrou" type="button" class="btn btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#modalCadastrarNovoUsuario">
-      Cadastrar Novo Usuário
-    </button>
-    <button *ngIf="!entrou" type="button" class="btn btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#modalEntrarSistema">
-      Entrar no Sistema
-    </button>
-    <button *ngIf="entrou" type="button" class="btn btn-primary" type="submit" (click)="deslogar()">
-      Deslogar do Sistema
-    </button>
-    <div *ngIf="entrou">
-      <h2>Bem vindo ao Sistema {{usuarioLogado.email}}</h2>
-    </div>
-  </div>
-</div> 
-<div id="mySidenav" class="sidenav">
-  <a  routerLink="/homePage" id="about">Página Inicial</a>
-  <a routerLink="/meuCarrinho" id="blog">Meu Carrinho</a>
-  <a routerLink="/catalogoProduto" id="projects">Catalogo de Produtos</a>
-  <a routerLink="/desenvolvedor" id="contact">Desenvolvedor</a>
-</div> 
-
-<div #modalCadastrarNovoUsuario class="modal fade" id="modalCadastrarNovoUsuario" tabindex="-1" aria-labelledby="exampleModalCadastrarUsuario" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Cadastrar Novo Usuario:</h5>
-      </div>
-      <div class="modal-body" id="scroll">
-        <div class="bg-img2">
-          <form action="/action_page.php" class="container2">
-            <h1>Cadastrar</h1>
-            <label ><b>Informe o seu Nome Completo:</b></label>
-            <!-- <input type="text"   name="nome" required [(ngModel)]="a" > -->
-            <input type="text" class="form-control" name="nome" placeholder="Enter Nome Completo" value="" [(ngModel)]="usuarioCadastroLocal.nomeCompleto">
-            
-            <label ><b>Informe o seu RG:</b></label>
-            <input type="text" placeholder="Enter RG" name="rg" required for="usuarioCadastro.rg" [(ngModel)]="usuarioCadastroLocal.rg">
-
-            <label ><b>Informe o seu CPF:</b></label>
-            <input type="text" placeholder="Enter CPF" name="cpf" required [(ngModel)]="usuarioCadastroLocal.cpf">
-        
-            <label ><b>Informe o Email:</b></label>
-            <input type="text" placeholder="Enter Email" name="email" required [(ngModel)]="usuarioCadastroLocal.email">
-        
-            <label><b>Informe sua Senha:</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required [(ngModel)]="usuarioCadastroLocal.senha">
-        
-          </form>
-        </div> 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="cadastrarUsuario()" data-bs-dismiss="modal">Cadastrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div #modalEntrarSistema class="modal fade" id="modalEntrarSistema" tabindex="-1" aria-labelledby="exampleModalEntrarSistema" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Entrar no Sistema:</h5>
-      </div>
-      <div class="modal-body">
-        <div class="bg-img2">
-          <form action="/action_page.php" class="container2">
-            <h1>Login</h1>
-        
-            <label><b>Informe o Email:</b></label>
-            <input type="text" placeholder="Enter Email" name="email" required [(ngModel)]="usuarioCadastroLocal.email">
-        
-            <label><b>Informe sua Senha:</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required [(ngModel)]="usuarioCadastroLocal.senha">
-        
-            <button type="submit" class="btn" (click)="entrarSistema()" data-bs-dismiss="modal">Entrar</button>
-          </form>
-        </div> 
-        <div class="modal-footer">
+<div *ngIf="usuarioLogado.email!=''">
+  <!-- Vertical navbar -->
+  <div class="vertical-nav bg-white" id="sidebar">
+    <div class="py-4 px-3 mb-4 bg-light">
+      <div class="media d-flex align-items-center"><img src="../assets/eu2.jpg" alt="..." width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm">
+        <div class="media-body">
+          <h4 class="m-0">Mateus Tormes</h4>
+          <p class="font-weight-light text-muted mb-0">Web developer</p>
         </div>
       </div>
     </div>
+  
+    <p class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Main</p>
+  
+    <ul class="nav flex-column bg-white mb-0">
+      <li class="nav-item">
+        <a routerLink="/homePage" class="nav-link text-dark font-italic bg-light">
+                  <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
+                  Página Inicial
+              </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/meuCarrinho" class="nav-link text-dark font-italic">
+                  <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
+                  Meu Carrinho
+              </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/catalogoProduto" class="nav-link text-dark font-italic">
+                  <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
+                  Catalogo de Produtos
+              </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/desenvolvedor" class="nav-link text-dark font-italic">
+                  <i class="fa fa-picture-o mr-3 text-primary fa-fw"></i>
+                  Desenvolvedor
+              </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/sobre" class="nav-link text-dark font-italic">
+                  <i class="fa fa-picture-o mr-3 text-primary fa-fw"></i>
+                  Sobre o Site
+              </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-dark font-italic">
+                  <i class="fa fa-picture-o mr-3 text-primary fa-fw"></i>
+                  <button type="button" class="btn btn-primary" type="submit" (click)="deslogar()">
+                    Deslogar do Sistema
+                  </button>
+              </a>
+      </li>
+    </ul>
   </div>
+  <!-- End vertical navbar -->
 </div>
-
 
 <router-outlet></router-outlet>

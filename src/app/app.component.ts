@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router } from "@angular/router";
 import {usuarioCadastro,usuarioLogado,listaUsuariosCadastrados} from "./global"
 import { UsuarioDTO } from './models/usuarios.dto';
 @Component({
@@ -10,46 +10,25 @@ import { UsuarioDTO } from './models/usuarios.dto';
 
 
 export class AppComponent {
-  @Input() usuarioCadastroLocal: UsuarioDTO= new UsuarioDTO();
-  @Input() usuarioLogado: UsuarioDTO = new UsuarioDTO();
-  @Input() listaUsuarioCadastradosLocal: UsuarioDTO[] = [];
+  @Input() usuarioCadastroLocal: UsuarioDTO= usuarioCadastro;
+  @Input() usuarioLogado: UsuarioDTO = usuarioLogado;
+  @Input() listaUsuarioCadastradosLocal: UsuarioDTO[] = listaUsuariosCadastrados;
   entrou:boolean=false; 
-  constructor(router: Router){}
+  constructor(private router: Router){}
   
 
   ngOnInit(){
+    console.log(usuarioLogado);
+    if(usuarioLogado.email == ""){
+      this.router.navigate(['/login'])
+    }
+    
   }
 
-  cadastrarUsuario(){
-    this.listaUsuarioCadastradosLocal.push(this.usuarioCadastroLocal);
-    this.usuarioCadastroLocal = new UsuarioDTO;        
-  }
-  entrarSistema(){
-    this.listaUsuarioCadastradosLocal.forEach(items=>{
-      if(items.email == this.usuarioCadastroLocal.email && items.senha == this.usuarioCadastroLocal.senha){
-        this.entrou=true;
-        this.usuarioLogado = items;
-      }
-    });
-    if(this.entrou){
-      usuarioLogado.rg = this.usuarioLogado.rg;
-      usuarioLogado.cpf = this.usuarioLogado.cpf;
-      usuarioLogado.email = this.usuarioLogado.email;
-      usuarioLogado.nomeCompleto = this.usuarioLogado.nomeCompleto;
-      usuarioLogado.senha = this.usuarioLogado.senha;
-      console.log('entrou')
-    }else{
-      console.log('n entrou')
-    }
-  }
+  
 
   deslogar(){    
     this.entrou=false;
-    this.usuarioLogado = new UsuarioDTO();
-    usuarioLogado.cpf="";
-    usuarioLogado.rg="";
-    usuarioLogado.email="";
-    usuarioLogado.senha="";
-    usuarioLogado.nomeCompleto="";
+    this.router.navigate(['/login'])
   }
 }

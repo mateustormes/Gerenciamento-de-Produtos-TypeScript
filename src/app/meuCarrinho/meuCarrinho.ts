@@ -15,7 +15,7 @@ export class MeuCarrinhoComponent{
     constructor(private router: Router){}
     listaProdutos:Array<produtoObj>=listaProdutos;
     listaProdutosEletronicos:Array<produtoObj>=[];
-    colunasTabela =["Id","Código", "Descrição", "Valor"];
+    colunasTabela =["Id","Código", "Descrição", "Valor","Editar","Excluir"];
     meuCarrinhoLocal:Array<produtoObj> = meuCarrinho;
     comprasFinalizadasLocal:Array<finalizarCompra>= comprasFinalizadas;
     objSelecionado:produtoObj = new produtoObj();
